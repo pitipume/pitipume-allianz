@@ -1,0 +1,6 @@
+{
+  // Cloudflare serves only the public build. Never point this at site/.
+  "name": "pitipume-allianz",
+  "compatibility_date": "2026-10-01",
+  "assets": { "directory": "./public" }
+}

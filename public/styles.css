@@ -17,10 +17,10 @@ header { background: var(--card); border-bottom: 1px solid var(--line); padding:
 h1 { font-size: 20px; margin: 0; }
 h2 { font-size: 18px; margin: 20px 0 8px; }
 .notice { color: var(--muted); font-size: 13px; margin: 4px 0 8px; }
-nav { display: flex; gap: 4px; }
-nav button { background: none; border: 0; border-bottom: 3px solid transparent; padding: 10px 14px; font: inherit; color: var(--muted); cursor: pointer; }
+nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
+nav button { background: none; border: 0; border-bottom: 3px solid transparent; padding: 10px 14px; font: inherit; color: var(--muted); cursor: pointer; white-space: nowrap; flex: none; }
 nav button.active { color: var(--accent); border-color: var(--accent); font-weight: 600; }
-main { max-width: 1040px; margin: 0 auto; padding: 16px; }
+main { max-width: 1440px; margin: 0 auto; padding: 16px; }
 .switch { font-size: 14px; white-space: nowrap; }
 .tablewrap { overflow-x: auto; background: var(--card); border: 1px solid var(--line); border-radius: 8px; }
 table { border-collapse: collapse; width: 100%; font-size: 15px; }
@@ -30,7 +30,7 @@ tbody tr.row { cursor: pointer; }
 tbody tr.row:hover { background: var(--accent-soft); }
 tr:last-child td { border-bottom: 0; }
 td.num { white-space: nowrap; text-align: right; font-variant-numeric: tabular-nums; }
-.code { color: var(--muted); font-size: 13px; }
+.code, .sub { color: var(--muted); font-size: 13px; }
 .child td:first-child { padding-left: 26px; }
 .badge { font-size: 12px; font-weight: 700; padding: 1px 7px; border-radius: 10px; border: 1px solid currentColor; }
 .tA { color: var(--a); } .tB { color: var(--b); } .tC { color: var(--c); } .tD { color: var(--d); }
@@ -62,7 +62,7 @@ body.customer .agent, body.public .switch, body.public .code { display: none !im
 .group { margin-bottom: 28px; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
 .chip { font-size: 13px; padding: 2px 8px; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
-.tablewrap { max-height: 78vh; overflow: auto; }
+.tablewrap { max-height: 78vh; max-height: 78dvh; overflow: auto; -webkit-overflow-scrolling: touch; }
 .matrix { width: auto; min-width: 100%; }
 .matrix th, .matrix td { border-right: 1px solid var(--line); }
 .matrix thead th { position: sticky; top: 0; background: var(--card); z-index: 2; }
@@ -80,4 +80,39 @@ body.customer .agent, body.public .switch, body.public .code { display: none !im
 .pickers summary { font-weight: 600; cursor: pointer; margin-bottom: 8px; }
 .pickergrid { columns: 2 320px; column-gap: 12px; }
 .pickergrid .picker { break-inside: avoid; }
+
+/* iPad and smaller: the page header scrolls away so tables get the height */
+@media (max-width: 1024px) {
+  header { position: static; }
+  .matrix tbody th[scope=row], .matrix .corner { min-width: 140px; max-width: 170px; }
+  .matrix .col, .matrix td.num { min-width: 100px; }
+  button, .chip, .pick label, summary { touch-action: manipulation; }
+  nav button, .actions button { min-height: 44px; }
+  .chip { padding: 6px 10px; }
+}
+
+/* Phones */
+@media (max-width: 640px) {
+  main { padding: 12px; }
+  h1 { font-size: 18px; }
+  h2 { font-size: 16px; }
+  .notice { font-size: 12px; }
+  nav button { padding: 10px 10px; font-size: 15px; }
+  table { font-size: 13px; }
+  th, td { padding: 7px 6px; }
+  .matrix tbody th[scope=row], .matrix .corner { min-width: 104px; max-width: 118px; font-size: 12px; }
+  .matrix .col, .matrix td.num { min-width: 88px; max-width: 120px; }
+  .matrix .col { font-size: 12px; }
+  .chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; scrollbar-width: none; }
+  .chip { flex: none; }
+  .actions button { flex: 1 1 auto; }
+  .switcher { width: 100%; }
+  .actions .switcher button { flex: 1; }
+  .pick input[type=number], .pick select, #search { font-size: 16px; } /* below 16px iOS zooms the page on focus */
+  .pick .inputs { margin-left: 0; }
+  .pick .inputs label { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+  .pick.child { margin-left: 12px; }
+  .pickergrid { columns: 1; }
+}
+
 @media print { .tablewrap { max-height: none; overflow: visible; } .pickers { display: none; } }

@@ -91,7 +91,7 @@
     const total = (p) => Object.values(p).reduce((sum, s) => sum + s.premium, 0);
     const missing = (p) => Object.values(p).filter((s) => !s.premium).length;
     const premium = `<tr class="band"><th colspan="${used.length + 1}">เบี้ยประกัน</th></tr>
-      <tr class="total"><th scope="row">รวมต่อปี</th>${used.map(({ p }) => `<td class="num">${money(total(p))}${missing(p) ? `<div class="code">ยังไม่กรอก ${missing(p)} รายการ</div>` : ""}</td>`).join("")}</tr>`;
+      <tr class="total"><th scope="row">รวมต่อปี</th>${used.map(({ p }) => `<td class="num">${money(total(p))}${missing(p) ? `<div class="sub">ยังไม่กรอก ${missing(p)} รายการ</div>` : ""}</td>`).join("")}</tr>`;
     return `<div class="tablewrap"><table class="matrix"><thead><tr><th class="corner">ผลประโยชน์</th>${head}</tr></thead><tbody>${contracts}${body}${premium}</tbody></table></div>`;
   }
 

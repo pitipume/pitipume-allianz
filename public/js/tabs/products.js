@@ -48,7 +48,9 @@
       ${c.plan ? `<div>${esc(c.plan)}</div>` : ""}<div class="code">${esc(c.p.code)} ${badge(c.p.tier)}</div></th>`).join("");
     const row = (label, get) => `<tr><th scope="row">${esc(label)}</th>${cols.map((c) => `<td class="num${unverified(c)}">${esc(get(c) || "—")}</td>`).join("")}</tr>`;
     const riders = cols.some((c) => childrenOf(c.p).length) ? [row("สัญญาเสริมที่ซื้อเพิ่มได้", (c) => childrenOf(c.p).map((r) => r.name).join(", "))] : [];
-    const facts = [row("อายุรับประกัน", (c) => c.p.entry), row("ความคุ้มครอง", (c) => c.p.cover), row("ระยะรอคอย", (c) => c.p.waiting)];
+    const facts = [["อายุรับประกัน", "entry"], ["ความคุ้มครอง", "cover"], ["ระยะรอคอย", "waiting"]]
+      .filter(([, field]) => cols.some((c) => c.p[field]))
+      .map(([label, field]) => row(label, (c) => c.p[field]));
     const rows = group.rows.filter(([key]) => cols.some((c) => value(c.p, c.plan, key))).map(([key, label]) => row(label, (c) => value(c.p, c.plan, key)));
     return `<div class="tablewrap"><table class="matrix"><thead><tr><th class="corner">ผลประโยชน์</th>${head}</tr></thead><tbody>${riders.join("")}${rows.join("")}${facts.join("")}</tbody></table></div>`;
   }
