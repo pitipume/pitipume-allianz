@@ -1,0 +1,66 @@
+[
+ {
+  "code": "AI",
+  "name": "อุบัติเหตุ อ.1 (AI)",
+  "cat": "accident",
+  "tier": "D",
+  "src": null,
+  "summary": "ยังไม่มีเอกสารยืนยัน",
+  "entry": "ยังไม่ยืนยัน",
+  "cover": "ยังไม่ยืนยัน",
+  "sa": true,
+  "benefits": []
+ },
+ {
+  "code": "AIRCC",
+  "name": "สลักหลัง ฆาตกรรม-จลาจล ของ อ.1 (AIRCC)",
+  "cat": "accident",
+  "parent": [
+   "AI"
+  ],
+  "tier": "D",
+  "src": null,
+  "summary": "ยังไม่มีเอกสารยืนยัน",
+  "entry": "ยังไม่ยืนยัน",
+  "cover": "ยังไม่ยืนยัน",
+  "benefits": []
+ },
+ {
+  "code": "ADD",
+  "name": "อุบัติเหตุ อ.2 (ADD)",
+  "cat": "accident",
+  "tier": "D",
+  "src": null,
+  "summary": "ยังไม่มีเอกสารยืนยัน",
+  "entry": "ยังไม่ยืนยัน",
+  "cover": "ยังไม่ยืนยัน",
+  "sa": true,
+  "benefits": []
+ },
+ {
+  "code": "ADDRCC",
+  "name": "สลักหลัง ฆาตกรรม-จลาจล ของ อ.2 (ADDRCC)",
+  "cat": "accident",
+  "parent": [
+   "ADD"
+  ],
+  "tier": "D",
+  "src": null,
+  "summary": "ยังไม่มีเอกสารยืนยัน",
+  "entry": "ยังไม่ยืนยัน",
+  "cover": "ยังไม่ยืนยัน",
+  "benefits": []
+ },
+ {
+  "code": "ADB",
+  "name": "อุบัติเหตุ อ.3 (ADB)",
+  "cat": "accident",
+  "tier": "D",
+  "src": null,
+  "summary": "ยังไม่มีเอกสารยืนยัน",
+  "entry": "ยังไม่ยืนยัน",
+  "cover": "ยังไม่ยืนยัน",
+  "sa": true,
+  "benefits": []
+ }
+]

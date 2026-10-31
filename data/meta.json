@@ -1,0 +1,430 @@
+{
+ "checked": "2026-10-31",
+ "tiers": {
+  "A": "โบรชัวร์ทางการฉบับปัจจุบัน อ่านตัวเลขจากเอกสารโดยตรง",
+  "B": "หน้าเว็บทางการ อาจมีบางส่วนสรุปโดยเครื่องมือ ควรเทียบเอกสารก่อนใช้กับลูกค้า",
+  "C": "เว็บตัวแทนหรือข้อมูลเก่า ไม่ใช่เอกสารทางการ",
+  "D": "ยังไม่มีแหล่งข้อมูลยืนยัน ห้ามใช้ตอบลูกค้า ต้องเติมจาก AZD หรือสัญญาจริง"
+ },
+ "buckets": {
+  "limit": "วงเงินรวม",
+  "ipd": "นอนโรงพยาบาล (IPD)",
+  "opd": "ผู้ป่วยนอก (OPD)",
+  "accident": "อุบัติเหตุ",
+  "critical": "โรคร้ายแรง / มะเร็ง",
+  "income": "เงินชดเชยรายได้",
+  "prevent": "ป้องกัน ทันตกรรม สายตา คลอดบุตร",
+  "death": "เสียชีวิต / ทุพพลภาพ",
+  "other": "อื่นๆ"
+ },
+ "categories": [
+  {
+   "id": "life",
+   "name": "สัญญาหลัก: ประกันชีวิต",
+   "rule": "one",
+   "required": true
+  },
+  {
+   "id": "wp",
+   "name": "ทุพพลภาพ",
+   "rule": "many"
+  },
+  {
+   "id": "accident",
+   "name": "อุบัติเหตุ",
+   "rule": "many"
+  },
+  {
+   "id": "health_itemized",
+   "name": "สุขภาพ (แยกค่าใช้จ่าย)",
+   "rule": "many"
+  },
+  {
+   "id": "health_lump",
+   "name": "สุขภาพ (เหมาจ่าย)",
+   "rule": "one"
+  },
+  {
+   "id": "income",
+   "name": "ชดเชยรายได้",
+   "rule": "many"
+  },
+  {
+   "id": "term_rider",
+   "name": "คุ้มครองชีวิตเพิ่มเติม",
+   "rule": "many"
+  },
+  {
+   "id": "ci",
+   "name": "โรคร้ายแรง",
+   "rule": "many"
+  }
+ ],
+ "sources": {
+  "fcu": {
+   "title": "โบรชัวร์ First Class Ultra 80/100MB (Version 21 Apr 2026)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-First-Class-Ultra-80-100MB-Signedoff.pdf"
+  },
+  "bdms": {
+   "title": "โบรชัวร์ First Class Ultra @BDMS 60/120MB (Version 20 Apr 2026)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-First-Class-Ultra-BDMS-60-120MB-Signedoff.pdf"
+  },
+  "dc": {
+   "title": "โบรชัวร์ Double Care ภาษาอังกฤษ ฉบับแปล (Version Apr 2026)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Health-Plus-Double-Care-April-2026-EN.pdf"
+  },
+  "sk": {
+   "title": "โบรชัวร์ สบายกระเป๋า ภาษาอังกฤษ ฉบับแปล (Version Oct 2025)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Health-Plus-Rider-SabaiKapao-EN.pdf"
+  },
+  "mwl": {
+   "title": "โบรชัวร์ My Wealth Legacy A99/6 (Version Nov 2025)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Wealth-Legacy-A99-6_TH_Nov2025.pdf"
+  },
+  "mpl": {
+   "title": "โบรชัวร์ My Prime Legacy Ultra A99/6 (Version 5 Aug 2026)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Prime-Legacy-Ultra-A99-6-Participating.pdf"
+  },
+  "wl20": {
+   "title": "โบรชัวร์ My Whole Life A99/20 (ไฟล์ใหญ่เกิน 10MB ยังอ่านไม่ได้)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Whole-Life-A99-20-Par.pdf"
+  },
+  "hbci": {
+   "title": "โบรชัวร์ ประกันชดเชยสบายกระเป๋า (Version Jun 2026)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/brochure-HBCI.pdf"
+  },
+  "b48": {
+   "title": "โบรชัวร์ โรคร้าย 48 บียอนด์ (Version Sep 2026)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/ci48-beyond-brochure.pdf"
+  },
+  "mc": {
+   "title": "โบรชัวร์ โรคร้าย มัลติ แคร์ (Version Nov 2023)",
+   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-CI-Multi-Care-TH-Nov6-Adj.pdf"
+  },
+  "hbp": {
+   "title": "หน้าเว็บ HBP",
+   "url": "https://www.azay.co.th/th_TH/health/hospital-benefits/hbp.html"
+  },
+  "hb": {
+   "title": "หน้าเว็บ HB",
+   "url": "https://www.azay.co.th/th_TH/health/hospital-benefits/hb.html"
+  },
+  "hs": {
+   "title": "หน้าเว็บ HS",
+   "url": "https://www.azay.co.th/th_TH/health/general-health/hs-ipd-rider.html"
+  },
+  "opd": {
+   "title": "หน้าเว็บ OPD",
+   "url": "https://www.azay.co.th/th_TH/health/general-health/opd-rider.html"
+  },
+  "ci48": {
+   "title": "หน้าเว็บ CI48",
+   "url": "https://www.azay.co.th/th_TH/health/critical-illness/ci-48.html"
+  },
+  "cbn": {
+   "title": "หน้าแคมเปญ CBN",
+   "url": "https://life.azay.co.th/th_TH/campaign/cbn.html"
+  },
+  "term": {
+   "title": "หน้าเว็บ อยุธยาชั่วระยะเวลา",
+   "url": "https://www.azay.co.th/en_TH/life/terms/term-life.html"
+  },
+  "cb": {
+   "title": "เว็บตัวแทน azay-agent.com (ไม่ใช่ทางการ)",
+   "url": "https://azay-agent.com/pages/products/cancer-benefit.html"
+  },
+  "t10": {
+   "title": "เว็บตัวแทน 9prakan (ไม่ใช่ทางการ ข้อมูลเก่า)",
+   "url": "https://shop.9prakan.com/2011/02/allianz-temporary-10/"
+  },
+  "wp": {
+   "title": "เว็บตัวแทน azayinsurance.com (ไม่ใช่ทางการ)",
+   "url": "https://azayinsurance.com/%E0%B8%AA%E0%B8%B1%E0%B8%8D%E0%B8%8D%E0%B8%B2%E0%B9%80%E0%B8%9E%E0%B8%B4%E0%B9%88%E0%B8%A1%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%E0%B8%84%E0%B8%B8%E0%B9%89%E0%B8%A1%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%87-6/"
+  }
+ },
+ "compareGroups": [
+  {
+   "name": "ประกันชีวิต (สัญญาหลัก)",
+   "cats": [
+    "life"
+   ],
+   "rows": [
+    [
+     "pay",
+     "ระยะจ่ายเบี้ย"
+    ],
+    [
+     "minsa",
+     "ทุนขั้นต่ำ"
+    ],
+    [
+     "death",
+     "เสียชีวิต"
+    ],
+    [
+     "maturity",
+     "อยู่ครบสัญญา"
+    ],
+    [
+     "loan",
+     "กู้จากกรมธรรม์"
+    ],
+    [
+     "dividend",
+     "เงินปันผล"
+    ]
+   ]
+  },
+  {
+   "name": "ประกันสุขภาพ",
+   "cats": [
+    "health_itemized",
+    "health_lump"
+   ],
+   "rows": [
+    [
+     "limit",
+     "วงเงินต่อปี"
+    ],
+    [
+     "limit_ci",
+     "วงเงินเมื่อเป็นโรคร้ายแรง"
+    ],
+    [
+     "opd",
+     "ผู้ป่วยนอก (OPD)"
+    ],
+    [
+     "room",
+     "ค่าห้องต่อวัน"
+    ],
+    [
+     "icu",
+     "ICU"
+    ],
+    [
+     "nurse",
+     "ค่าพยาบาลต่อวัน"
+    ],
+    [
+     "doctor",
+     "แพทย์เยี่ยมต่อวัน"
+    ],
+    [
+     "other_med",
+     "ค่ารักษาอื่น ยา แล็บ"
+    ],
+    [
+     "take_home",
+     "ยากลับบ้าน"
+    ],
+    [
+     "surgery_or",
+     "ห้องผ่าตัด"
+    ],
+    [
+     "surgery_doc",
+     "ค่าแพทย์ผ่าตัด"
+    ],
+    [
+     "surgery_an",
+     "วิสัญญีแพทย์"
+    ],
+    [
+     "onc",
+     "ล้างไต เคมีบำบัด รังสีรักษา"
+    ],
+    [
+     "diag",
+     "ตรวจวินิจฉัยก่อน-หลังนอน รพ."
+    ],
+    [
+     "opd_follow",
+     "ผู้ป่วยนอกต่อเนื่องหลังนอน รพ."
+    ],
+    [
+     "minor",
+     "ผ่าตัดเล็ก"
+    ],
+    [
+     "rehab",
+     "เวชศาสตร์ฟื้นฟู กายภาพ"
+    ],
+    [
+     "equipment",
+     "เครื่องมือแพทย์คงทน"
+    ],
+    [
+     "acc_opd",
+     "อุบัติเหตุผู้ป่วยนอก"
+    ],
+    [
+     "acc_dental",
+     "ทันตกรรมจากอุบัติเหตุ"
+    ],
+    [
+     "ambulance",
+     "รถพยาบาลฉุกเฉิน"
+    ],
+    [
+     "vaccine",
+     "วัคซีน"
+    ],
+    [
+     "checkup",
+     "ตรวจสุขภาพ"
+    ],
+    [
+     "check_vax",
+     "ตรวจสุขภาพ/วัคซีน รวมกัน"
+    ],
+    [
+     "dental",
+     "ทันตกรรม"
+    ],
+    [
+     "vision",
+     "สายตา"
+    ],
+    [
+     "maternity",
+     "คลอดบุตร / ภาวะแทรกซ้อน"
+    ],
+    [
+     "psych",
+     "จิตเวช"
+    ],
+    [
+     "child_care",
+     "ค่าดูแลเด็กต่ำกว่า 16"
+    ],
+    [
+     "overseas",
+     "ฉุกเฉินต่างประเทศ"
+    ]
+   ]
+  },
+  {
+   "name": "โรคร้ายแรงและมะเร็ง",
+   "cats": [
+    "ci"
+   ],
+   "rows": [
+    [
+     "ci_count",
+     "จำนวนโรคที่คุ้มครอง"
+    ],
+    [
+     "ci_max",
+     "รับรวมสูงสุด"
+    ],
+    [
+     "ci_main",
+     "โรคร้ายแรงหลัก"
+    ],
+    [
+     "ci_early",
+     "ระยะไม่รุนแรง"
+    ],
+    [
+     "ci_extra",
+     "เพิ่มเติม 6 โรค"
+    ],
+    [
+     "ci_heart",
+     "หลอดเลือดหัวใจตีบ"
+    ],
+    [
+     "ci_dm",
+     "โรคแทรกซ้อนเบาหวาน"
+    ],
+    [
+     "waiver",
+     "ยกเว้นเบี้ย"
+    ],
+    [
+     "cancer_lump",
+     "มะเร็งลุกลาม เงินก้อน"
+    ],
+    [
+     "cancer_early",
+     "มะเร็งไม่ลุกลาม เงินก้อน"
+    ],
+    [
+     "cancer_room",
+     "มะเร็ง ค่าห้องต่อวัน"
+    ],
+    [
+     "cancer_limit",
+     "มะเร็ง วงเงินต่อชนิด"
+    ],
+    [
+     "cancer_total",
+     "มะเร็ง วงเงินรวม"
+    ],
+    [
+     "cancer_consult",
+     "ปรึกษาแพทย์ต่อครั้ง"
+    ],
+    [
+     "cancer_psy",
+     "จิตวิทยา/กายภาพ ต่อครั้ง"
+    ],
+    [
+     "death",
+     "เสียชีวิต"
+    ]
+   ]
+  },
+  {
+   "name": "ชดเชยรายได้",
+   "cats": [
+    "income"
+   ],
+   "rows": [
+    [
+     "daily",
+     "ชดเชยรายวัน"
+    ],
+    [
+     "icu_daily",
+     "ชดเชยรายวัน ICU"
+    ],
+    [
+     "ci_daily",
+     "ชดเชยรายวัน โรคร้ายแรง"
+    ],
+    [
+     "major",
+     "ผ่าตัดใหญ่"
+    ],
+    [
+     "complex",
+     "ผ่าตัดซับซ้อน"
+    ],
+    [
+     "dis",
+     "ทุพพลภาพถาวร"
+    ],
+    [
+     "death",
+     "เสียชีวิต"
+    ]
+   ]
+  },
+  {
+   "name": "อุบัติเหตุ ทุพพลภาพ และชีวิตเพิ่มเติม",
+   "cats": [
+    "accident",
+    "wp",
+    "term_rider"
+   ],
+   "rows": [
+    [
+     "waiver",
+     "ยกเว้นเบี้ย"
+    ]
+   ]
+  }
+ ]
+}

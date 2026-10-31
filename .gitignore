@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+.DS_Store
+# Real customer workbooks must never be committed. Only the generated template is tracked.
+sheet/*.xlsx
+!sheet/coverage-template.xlsx
+pitipume-allianz.md
