@@ -5,3 +5,6 @@ __pycache__/
 sheet/*.xlsx
 !sheet/coverage-template.xlsx
 pitipume-allianz.md
+
+# Source brochures from AZD, incl. an internal agent-only guide. Never commit.
+brochure/

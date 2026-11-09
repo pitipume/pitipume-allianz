@@ -24,7 +24,7 @@ def header(ws, labels, widths):
         cell.font = Font(name=FONT, bold=True, color="FFFFFF")
         cell.fill = PatternFill("solid", fgColor="1F4E79")
         ws.column_dimensions[get_column_letter(i)].width = width
-    ws.freeze_panes = ws.cell(row=ws.max_row + 1, column=1)
+    ws.freeze_panes = f"A{ws.max_row + 1}"  # a string, so no empty row 2 gets created
 
 
 def finish(wb):
@@ -37,8 +37,16 @@ def finish(wb):
 
 
 def resolve(products):
+    """Fill "same" products from their base, as site/js/core.js does."""
     base = {p["code"]: p for p in products}
-    return [{**base[p["same"]], **p} if p.get("same") else p for p in products]
+    out = []
+    for p in products:
+        if p.get("same"):
+            b = base[p["same"]]
+            conditions = [f'ค่าลดหย่อน: {p["deductible"]}'] + p.get("conditions", []) + b.get("conditions", [])
+            p = {**b, **p, "conditions": conditions}
+        out.append(p)
+    return out
 
 
 def benefit_rows(product):
@@ -81,14 +89,16 @@ def build_workbook(data):
     guide["A7"].font = Font(name=FONT, bold=True)
 
     ws = wb.create_sheet("Products")
-    header(ws, ["Code", "ชื่อ", "หมวด", "ระดับข้อมูล", "สรุป", "อายุรับประกัน", "ความคุ้มครอง", "ระยะรอคอย", "เงื่อนไข", "ข้อยกเว้น", "แหล่งข้อมูล"],
-           [16, 38, 22, 8, 40, 20, 22, 22, 50, 40, 40])
+    header(ws, ["Code", "ชื่อ", "หมวด", "ระดับข้อมูล", "สรุป", "อายุรับประกัน", "ความคุ้มครอง", "ระยะรอคอย", "เงื่อนไข", "ข้อยกเว้น", "แหล่งข้อมูล",
+                "ตัวอย่างเบี้ย", "เหมาะกับ", "ไม่เหมาะกับ"],
+           [16, 38, 22, 8, 40, 20, 22, 22, 50, 40, 40, 50, 30, 30])
     categories = {c["id"]: c["name"] for c in data["categories"]}
     for p in products:
-        src = data["sources"].get(p.get("src"), {}).get("url", "ยังไม่มี")
+        source = data["sources"].get(p.get("src"), {})
+        src = source.get("url") or source.get("title", "ยังไม่มี")
         ws.append([p["code"], p["name"], categories[p["cat"]], p["tier"], p.get("summary", ""), p.get("entry", "ดูสัญญาหลัก"),
                    p.get("cover", "ตามสัญญาหลัก"), p.get("waiting", ""), "\n".join(p.get("conditions", [])),
-                   "\n".join(p.get("exclusions", [])), src])
+                   "\n".join(p.get("exclusions", [])), src, p.get("premiumExample", ""), p.get("fit", ""), p.get("unfit", "")])
 
     ws = wb.create_sheet("Benefits")
     header(ws, ["Code", "หมวดผลประโยชน์", "รายการ", "แผน", "จำนวน (บาท)"], [16, 26, 62, 10, 22])
@@ -200,7 +210,7 @@ def validate(data):
 
 
 # Notes to the agent, never shown publicly. Also catches inferred codes.
-PRIVATE_NOTES = ("รายการของคุณ", "AZD", "อนุมาน", "ยังไม่ยืนยัน", "รหัสหน้าเว็บ", "ควรตรวจว่า", "ตารางไม่แสดง")
+PRIVATE_NOTES = ("สำหรับตัวแทน", "รายการของคุณ", "AZD", "อนุมาน", "ยังไม่ยืนยัน", "รหัสหน้าเว็บ", "ควรตรวจว่า", "ตารางไม่แสดง")
 
 
 # A whole field value of exactly this is a fact customers can see, not an agent note.

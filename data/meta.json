@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-31",
+ "checked": "2026-11-09",
  "showUnconfirmed": true,
  "tiers": {
   "A": "โบรชัวร์ทางการฉบับปัจจุบัน อ่านตัวเลขจากเอกสารโดยตรง",
@@ -23,7 +23,14 @@
    "id": "life",
    "name": "สัญญาหลัก: ประกันชีวิต",
    "rule": "one",
-   "required": true
+   "required": true,
+   "main": true
+  },
+  {
+   "id": "saving",
+   "name": "สัญญาหลัก: ออมทรัพย์และบำนาญ",
+   "rule": "one",
+   "main": true
   },
   {
    "id": "wp",
@@ -63,32 +70,32 @@
  ],
  "sources": {
   "fcu": {
-   "title": "โบรชัวร์ First Class Ultra 80/100MB (Version 21 Apr 2026)",
+   "title": "โบรชัวร์ First Class Ultra 80/100MB (Version 21 Apr 2026, ฉบับอังกฤษ Oct 2026, สรุปผลิตภัณฑ์ Sep 2026)",
    "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-First-Class-Ultra-80-100MB-Signedoff.pdf"
   },
   "bdms": {
-   "title": "โบรชัวร์ First Class Ultra @BDMS 60/120MB (Version 20 Apr 2026)",
+   "title": "โบรชัวร์ First Class Ultra @BDMS 60/120MB (Version 20 Apr 2026, ฉบับอังกฤษ Oct 2026, สรุปผลิตภัณฑ์ Sep 2026)",
    "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-First-Class-Ultra-BDMS-60-120MB-Signedoff.pdf"
   },
   "dc": {
-   "title": "โบรชัวร์ Double Care ภาษาอังกฤษ ฉบับแปล (Version Apr 2026)",
-   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Health-Plus-Double-Care-April-2026-EN.pdf"
+   "title": "โบรชัวร์ ปลดล็อค ดับเบิล แคร์ (Version Sep 2026) และ one-page แผน S/M/L",
+   "url": ""
   },
   "sk": {
-   "title": "โบรชัวร์ สบายกระเป๋า ภาษาอังกฤษ ฉบับแปล (Version Oct 2025)",
-   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Health-Plus-Rider-SabaiKapao-EN.pdf"
+   "title": "โบรชัวร์ ปลดล็อค สบายกระเป๋า (Version Sep 2026) และ one-page (Version Jul 2024)",
+   "url": ""
   },
   "mwl": {
-   "title": "โบรชัวร์ My Wealth Legacy A99/6 (Version Nov 2025)",
-   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Wealth-Legacy-A99-6_TH_Nov2025.pdf"
+   "title": "โบรชัวร์ My Wealth Legacy A99/6 (Version Sep 2026)",
+   "url": ""
   },
   "mpl": {
    "title": "โบรชัวร์ My Prime Legacy Ultra A99/6 (Version 5 Aug 2026)",
-   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Prime-Legacy-Ultra-A99-6-Participating.pdf"
+   "url": ""
   },
   "wl20": {
-   "title": "โบรชัวร์ My Whole Life A99/20 (ไฟล์ใหญ่เกิน 10MB ยังอ่านไม่ได้)",
-   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-My-Whole-Life-A99-20-Par.pdf"
+   "title": "โบรชัวร์ มาย โฮล ไลฟ์ A99/20 (Version Oct 2026)",
+   "url": ""
   },
   "hbci": {
    "title": "โบรชัวร์ ประกันชดเชยสบายกระเป๋า (Version Jun 2026)",
@@ -99,8 +106,8 @@
    "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/ci48-beyond-brochure.pdf"
   },
   "mc": {
-   "title": "โบรชัวร์ โรคร้าย มัลติ แคร์ (Version Nov 2023)",
-   "url": "https://www.azay.co.th/content/dam/onemarketing/azay/azay-co-th-web3/document-download/brochures/Brochure-CI-Multi-Care-TH-Nov6-Adj.pdf"
+   "title": "โบรชัวร์ โรคร้าย มัลติ แคร์ (Version Sep 2026)",
+   "url": ""
   },
   "hbp": {
    "title": "หน้าเว็บ HBP",
@@ -123,7 +130,7 @@
    "url": "https://www.azay.co.th/th_TH/health/critical-illness/ci-48.html"
   },
   "cbn": {
-   "title": "หน้าแคมเปญ CBN",
+   "title": "โบรชัวร์ มะเร็งหายห่วง (Version Aug 2026)",
    "url": "https://life.azay.co.th/th_TH/campaign/cbn.html"
   },
   "term": {
@@ -135,12 +142,32 @@
    "url": "https://azay-agent.com/pages/products/cancer-benefit.html"
   },
   "t10": {
-   "title": "เว็บตัวแทน 9prakan (ไม่ใช่ทางการ ข้อมูลเก่า)",
-   "url": "https://shop.9prakan.com/2011/02/allianz-temporary-10/"
+   "title": "โบรชัวร์ อยุธยาเฉพาะกาล 10/10 (Sep 2026)",
+   "url": ""
   },
   "wp": {
    "title": "เว็บตัวแทน azayinsurance.com (ไม่ใช่ทางการ)",
    "url": "https://azayinsurance.com/%E0%B8%AA%E0%B8%B1%E0%B8%8D%E0%B8%8D%E0%B8%B2%E0%B9%80%E0%B8%9E%E0%B8%B4%E0%B9%88%E0%B8%A1%E0%B9%80%E0%B8%95%E0%B8%B4%E0%B8%A1%E0%B8%84%E0%B8%B8%E0%B9%89%E0%B8%A1%E0%B8%84%E0%B8%A3%E0%B8%AD%E0%B8%87-6/"
+  },
+  "mdp": {
+   "title": "โบรชัวร์ มาย ดับเบิล พลัส (Version Sep 2026)",
+   "url": ""
+  },
+  "mq": {
+   "title": "โบรชัวร์ มาย ควิก รีเทิร์น 12/6 (Version Aug 2021)",
+   "url": ""
+  },
+  "msi": {
+   "title": "โบรชัวร์ มาย สมาร์ต อินเด็กซ์ 18/8 (Version Sep 2026)",
+   "url": ""
+  },
+  "mapa": {
+   "title": "โบรชัวร์ มาย บำนาญ พลัส (Version Sep 2026)",
+   "url": ""
+  },
+  "mafa": {
+   "title": "โบรชัวร์ มาย บำนาญ ไฟว์ A90/5 (Version Sep 2026)",
+   "url": ""
   }
  },
  "compareGroups": [
@@ -163,6 +190,10 @@
      "เสียชีวิต"
     ],
     [
+     "death_acc",
+     "เสียชีวิตจากอุบัติเหตุ เพิ่ม"
+    ],
+    [
      "maturity",
      "อยู่ครบสัญญา"
     ],
@@ -173,6 +204,54 @@
     [
      "dividend",
      "เงินปันผล"
+    ]
+   ]
+  },
+  {
+   "name": "ออมทรัพย์และบำนาญ (สัญญาหลัก)",
+   "cats": [
+    "saving"
+   ],
+   "rows": [
+    [
+     "pay",
+     "ระยะจ่ายเบี้ย"
+    ],
+    [
+     "minsa",
+     "ทุนขั้นต่ำ"
+    ],
+    [
+     "cashback",
+     "เงินคืนระหว่างสัญญา"
+    ],
+    [
+     "pension",
+     "เงินบำนาญ"
+    ],
+    [
+     "maturity",
+     "อยู่ครบสัญญา"
+    ],
+    [
+     "total",
+     "รวมรับขั้นต่ำ"
+    ],
+    [
+     "death",
+     "เสียชีวิต"
+    ],
+    [
+     "dividend",
+     "เงินปันผล"
+    ],
+    [
+     "health",
+     "สุขภาพตอนสมัคร"
+    ],
+    [
+     "riders",
+     "แนบสัญญาเพิ่มเติม"
     ]
    ]
   },
@@ -212,6 +291,10 @@
      "แพทย์เยี่ยมต่อวัน"
     ],
     [
+     "specialist",
+     "ปรึกษาแพทย์เฉพาะทาง"
+    ],
+    [
      "other_med",
      "ค่ารักษาอื่น ยา แล็บ"
     ],
@@ -230,6 +313,10 @@
     [
      "surgery_an",
      "วิสัญญีแพทย์"
+    ],
+    [
+     "transplant",
+     "ปลูกถ่ายอวัยวะ"
     ],
     [
      "onc",
@@ -262,6 +349,10 @@
     [
      "acc_dental",
      "ทันตกรรมจากอุบัติเหตุ"
+    ],
+    [
+     "recon",
+     "ศัลยกรรมตกแต่งจากอุบัติเหตุ/มะเร็ง"
     ],
     [
      "ambulance",

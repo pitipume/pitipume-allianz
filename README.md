@@ -32,12 +32,13 @@ open site/index.html                # no server needed
 Add an object to `data/products/<category>.json`, then run the build. The site, plan builder and spreadsheet pick it up. The build stops on a duplicate code, unknown parent, or a missing source.
 
 Main fields: `code`, `name`, `cat`, `tier` (A-D), `src` (a key in `sources`), `summary`, `entry`, `cover`, `waiting`, `conditions`, `exclusions`, `plans`, `benefits`.
+Optional: `premiumExample` (premium example quoted from the brochure), `fit` and `unfit` (who it suits), `noRiders: true` (main contract that takes no riders; the plan builder warns).
 Plan rules: `parent` (needs one of these first), `excludes` (cannot sit with these), `same` (copy a product and override fields).
 Amount inputs: `sa` (sum insured), `input` (label for a free amount).
 
 A benefit is `{ "b": "<group>", "k": ["<row key>"], "l": "<label>", "v": "<text>" }`. `k` places it on a comparison row from `compareGroups` in `meta.json`, so products line up. One line can fill several rows. Add a new row there if needed. `compare` holds facts with no benefit line, such as `{ "pay": "6 ปี" }`, and `cv` is short cell text for values the user types in. Use `"v": { "<plan>": "<value>" }` for per-plan amounts, or `"pct": 100` for a percent of sum insured.
 
-Add a category by adding it to `categories` in `meta.json` and creating its file. Add a disease-table contract with one entry in `columns` and one value per row in `diseases.json`.
+Add a category by adding it to `categories` in `meta.json` and creating its file. `"main": true` marks a main-contract category (life, saving): a plan holds one main contract across all of them. Add a disease-table contract with one entry in `columns` and one value per row in `diseases.json`.
 
 ## Add a tab
 
@@ -54,3 +55,6 @@ Add the class `agent` to anything customers should not see in customer mode.
 - Never put customer names, health details or policy numbers in `site/` or `data/`. The site is a static public page. Customer data belongs in the private Google Sheet.
 - Give every number a tier and a source. Tier D means no verified numbers yet.
 - Re-check tier A sources when the company issues new brochures.
+- Brochures from AZD go in `brochure/`, which git ignores. Never commit it: it can hold internal agent-only documents.
+- Facts that come only from an internal agent document start with `สำหรับตัวแทน:` in `conditions`. The build strips them from `public/`, so they show on the agent site and in the spreadsheet only.
+- A source with an empty `url` is a brochure file with no public link. It shows as text.

@@ -9,8 +9,9 @@ window.App = (() => {
   data.products.forEach((p) => {
     if (!p.same) return;
     const base = byCode[p.same];
+    const own = p.conditions || [];
     Object.keys(base).forEach((key) => { if (p[key] === undefined) p[key] = base[key]; });
-    p.conditions = [`ค่าลดหย่อน: ${p.deductible}`, ...(base.conditions || [])];
+    p.conditions = [`ค่าลดหย่อน: ${p.deductible}`, ...own, ...(base.conditions || [])];
   });
 
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));

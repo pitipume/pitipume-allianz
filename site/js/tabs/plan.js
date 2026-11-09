@@ -30,6 +30,8 @@
   }
 
   const unlocked = (p) => !p.parent || p.parent.some((c) => state()[c]);
+  const mainCats = categories.filter((c) => c.main).map((c) => c.id);
+  const isMain = (p) => mainCats.includes(p.cat);
 
   function deselect(code) {
     if (!state()[code]) return;
@@ -40,8 +42,10 @@
   function select(code) {
     const p = byCode[code];
     const category = categories.find((c) => c.id === p.cat);
+    // One main contract per plan, across every main category (life, saving).
+    const rivals = (x) => (category.main ? isMain(x) : x.cat === p.cat);
     if (category.rule === "one" && !p.parent) {
-      products.filter((x) => x.cat === p.cat && !x.parent && x.code !== code).forEach((x) => deselect(x.code));
+      products.filter((x) => rivals(x) && !x.parent && x.code !== code).forEach((x) => deselect(x.code));
     }
     (p.excludes || []).forEach(deselect);
     state()[code] = { plan: p.plans ? p.plans[0] : "", amount: 0, premium: 0 };
@@ -100,7 +104,9 @@
     plans.forEach((plan, i) => {
       const chosen = Object.keys(plan).map((c) => byCode[c]);
       if (!chosen.length) return;
-      if (!chosen.some((p) => p.cat === "life")) out.push(`${PLAN_NAMES[i]}: ยังไม่ได้เลือกสัญญาหลัก`);
+      const main = chosen.find(isMain);
+      if (!main) out.push(`${PLAN_NAMES[i]}: ยังไม่ได้เลือกสัญญาหลัก`);
+      else if (main.noRiders && chosen.some((p) => !isMain(p))) out.push(`${PLAN_NAMES[i]}: ${main.name} แนบสัญญาเพิ่มเติมไม่ได้`);
       const unverified = chosen.filter(unconfirmed).map((p) => p.name);
       if (unverified.length) out.push(`${PLAN_NAMES[i]}: ยังไม่ยืนยันจากเอกสารทางการ ${unverified.join(", ")}`);
     });

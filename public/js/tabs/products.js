@@ -28,7 +28,9 @@
   }
 
   function detail(p) {
-    const source = p.src ? `<p class="agent"><a href="${esc(sources[p.src].url)}" target="_blank" rel="noopener">แหล่งข้อมูล: ${esc(sources[p.src].title)}</a></p>` : "";
+    // AZD brochure files have no public URL, so they show as text.
+    const s = p.src && sources[p.src];
+    const source = !s ? "" : `<p class="agent">${s.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener">แหล่งข้อมูล: ${esc(s.title)}</a>` : `แหล่งข้อมูล: ${esc(s.title)}`}</p>`;
     const riders = childrenOf(p).map((c) => `${c.name} (${c.code}): ${c.summary}`);
     return `<div class="detail"><h3>${esc(p.name)} <span class="code">${esc(p.code)}</span> ${mark(p)}</h3>
       ${unconfirmed(p) ? `<p class="unc-note">ข้อมูลแบบนี้ยังไม่ได้ยืนยันจากเอกสารทางการ ตัวเลขอาจไม่ถูกต้อง สอบถามตัวแทนก่อนตัดสินใจ</p>` : ""}
