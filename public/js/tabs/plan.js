@@ -1,5 +1,5 @@
 (() => {
-  const { buckets, categories, compareGroups, products, byCode, esc, money, badge, cellValue, benefitValue } = App;
+  const { buckets, categories, compareGroups, products, byCode, esc, money, badge, unconfirmed, mark, cellValue, benefitValue } = App;
 
   const PLAN_NAMES = ["แผน A", "แผน B", "แผน C"];
   const rowLabels = {};
@@ -57,7 +57,7 @@
       <label>เบี้ย/ปี (ถ้าทราบ) <input type="number" min="0" ${attrs("premium")} value="${s.premium || ""}"></label>
     </div>`;
     const type = c.rule === "one" && !p.parent ? "radio" : "checkbox";
-    return `<div class="pick${p.parent ? " child" : ""}"><label><input type="${type}" name="${esc(c.id)}" data-code="${esc(p.code)}"${s ? " checked" : ""}> ${esc(p.name)} ${badge(p.tier)}</label>${inputs}</div>`;
+    return `<div class="pick${p.parent ? " child" : ""}"><label><input type="${type}" name="${esc(c.id)}" data-code="${esc(p.code)}"${s ? " checked" : ""}> ${esc(p.name)} ${badge(p.tier)} ${mark(p)}</label>${inputs}</div>`;
   }
 
   // Every value one plan gives for a (bucket, key) row, tagged with its code when two contracts add to it.
@@ -101,10 +101,11 @@
       const chosen = Object.keys(plan).map((c) => byCode[c]);
       if (!chosen.length) return;
       if (!chosen.some((p) => p.cat === "life")) out.push(`${PLAN_NAMES[i]}: ยังไม่ได้เลือกสัญญาหลัก`);
-      const unverified = chosen.filter((p) => p.tier === "C" || p.tier === "D").map((p) => p.code);
+      const unverified = chosen.filter(unconfirmed).map((p) => p.name);
       if (unverified.length) out.push(`${PLAN_NAMES[i]}: ยังไม่ยืนยันจากเอกสารทางการ ${unverified.join(", ")}`);
     });
-    return out.map((w) => `<div class="warn agent">${esc(w)}</div>`).join("");
+    // Customers see these too, since unconfirmed products are now public.
+    return out.map((w) => `<div class="warn">${esc(w)}</div>`).join("");
   }
 
   function draw() {

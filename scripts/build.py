@@ -163,6 +163,8 @@ def load():
 def validate(data):
     """Stop the build on data mistakes, so a bad entry never reaches the site."""
     errors = []
+    if not isinstance(data.get("showUnconfirmed"), bool):
+        errors.append("meta.json: showUnconfirmed must be true or false")
     codes = [p["code"] for p in data["products"]]
     errors += [f"duplicate code {c}" for c in {c for c in codes if codes.count(c) > 1}]
     categories = {c["id"] for c in data["categories"]}
@@ -201,14 +203,19 @@ def validate(data):
 PRIVATE_NOTES = ("รายการของคุณ", "AZD", "อนุมาน", "ยังไม่ยืนยัน", "รหัสหน้าเว็บ", "ควรตรวจว่า", "ตารางไม่แสดง")
 
 
+# A whole field value of exactly this is a fact customers can see, not an agent note.
+UNCONFIRMED = "ยังไม่ยืนยัน"
+
+
 def public_data(data):
-    """Keep only official-source products and strip agent notes."""
+    """Strip agent notes. Tier C/D become "D" so the site marks them unconfirmed, or are left out when showUnconfirmed is false."""
     products = []
     for product in data["products"]:
-        if product["tier"] not in ("A", "B"):
+        if product["tier"] not in ("A", "B") and not data["showUnconfirmed"]:
             continue
         clean = {k: v for k, v in product.items() if k != "tier"}
-        clean["tier"] = "A"  # the site needs a valid tier; the public page hides badges
+        # The public page hides badges. Raising a product to A/B in data/ removes its mark.
+        clean["tier"] = "A" if product["tier"] in ("A", "B") else "D"
         if "conditions" in clean:
             clean["conditions"] = [c for c in clean["conditions"] if not any(n in c for n in PRIVATE_NOTES)]
         products.append(clean)
@@ -220,17 +227,29 @@ def public_data(data):
         "products": products,
         "categories": [c for c in data["categories"] if c["id"] in cats],
         "compareGroups": [g for g in groups if g["cats"]],
-        "tiers": {"A": ""},
+        "tiers": {"A": "", "D": ""},
         "sources": {k: v for k, v in data["sources"].items() if k in {p.get("src") for p in products}},
     }
+
+
+def strings(value):
+    if isinstance(value, dict):
+        for v in value.values():
+            yield from strings(v)
+    elif isinstance(value, list):
+        for v in value:
+            yield from strings(v)
+    elif isinstance(value, str):
+        yield value
 
 
 def build_public(data):
     target = ROOT / "public"
     shutil.rmtree(target, ignore_errors=True)
     shutil.copytree(ROOT / "site", target, ignore=shutil.ignore_patterns("data.js"))
-    text = json.dumps(public_data(data), ensure_ascii=False)
-    leaks = [n for n in PRIVATE_NOTES if n in text]
+    public = public_data(data)
+    text = json.dumps(public, ensure_ascii=False)
+    leaks = sorted({n for s in strings(public) if s != UNCONFIRMED for n in PRIVATE_NOTES if n in s})
     if leaks:
         raise SystemExit(f"Private notes in public data: {leaks}")
     (target / "data.js").write_text(f"window.DATA = {text};\n", encoding="utf-8")

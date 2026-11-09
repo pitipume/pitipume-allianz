@@ -1,5 +1,5 @@
 (() => {
-  const { tiers, compareGroups, sources, products, checked, byCode, esc, badge, list, cellValue, benefitValue } = App;
+  const { tiers, compareGroups, sources, products, checked, byCode, esc, badge, unconfirmed, mark, list, cellValue, benefitValue } = App;
 
   // Column ids hidden by the chips. Kept in memory only, so a refresh shows everything again.
   const hidden = new Set();
@@ -30,7 +30,8 @@
   function detail(p) {
     const source = p.src ? `<p class="agent"><a href="${esc(sources[p.src].url)}" target="_blank" rel="noopener">แหล่งข้อมูล: ${esc(sources[p.src].title)}</a></p>` : "";
     const riders = childrenOf(p).map((c) => `${c.name} (${c.code}): ${c.summary}`);
-    return `<div class="detail"><h3>${esc(p.name)} <span class="code">${esc(p.code)}</span></h3>
+    return `<div class="detail"><h3>${esc(p.name)} <span class="code">${esc(p.code)}</span> ${mark(p)}</h3>
+      ${unconfirmed(p) ? `<p class="unc-note">ข้อมูลแบบนี้ยังไม่ได้ยืนยันจากเอกสารทางการ ตัวเลขอาจไม่ถูกต้อง สอบถามตัวแทนก่อนตัดสินใจ</p>` : ""}
       <p>${esc(p.summary)}</p>
       ${p.fit ? `<p>เหมาะกับ: ${esc(p.fit)}</p>` : ""}${p.unfit ? `<p>ไม่เหมาะกับ: ${esc(p.unfit)}</p>` : ""}
       ${p.premiumExample ? `<p>ตัวอย่างเบี้ย: ${esc(p.premiumExample)}</p>` : ""}
@@ -43,9 +44,9 @@
   function matrix(group) {
     const cols = columns(group).filter((c) => !hidden.has(c.id));
     if (!cols.length) return "<p>เลือกอย่างน้อย 1 แบบด้านบน</p>";
-    const unverified = (c) => (c.p.tier === "C" || c.p.tier === "D" ? " agent" : "");
+    const unverified = (c) => (unconfirmed(c.p) ? " unc" : "");
     const head = cols.map((c) => `<th class="col${unverified(c)}"><button class="linklike" data-detail="${esc(c.p.code)}">${esc(c.p.name)}</button>
-      ${c.plan ? `<div>${esc(c.plan)}</div>` : ""}<div class="code">${esc(c.p.code)} ${badge(c.p.tier)}</div></th>`).join("");
+      ${c.plan ? `<div>${esc(c.plan)}</div>` : ""}<div class="code">${esc(c.p.code)} ${badge(c.p.tier)}</div>${mark(c.p)}</th>`).join("");
     const row = (label, get) => `<tr><th scope="row">${esc(label)}</th>${cols.map((c) => `<td class="num${unverified(c)}">${esc(get(c) || "—")}</td>`).join("")}</tr>`;
     const riders = cols.some((c) => childrenOf(c.p).length) ? [row("สัญญาเสริมที่ซื้อเพิ่มได้", (c) => childrenOf(c.p).map((r) => r.name).join(", "))] : [];
     const facts = [["อายุรับประกัน", "entry"], ["ความคุ้มครอง", "cover"], ["ระยะรอคอย", "waiting"]]
@@ -59,8 +60,7 @@
     return products.filter((p) => group.cats.includes(p.cat) && !p.parent).map((p) => {
       const ids = columns(group).filter((c) => c.p === p).map((c) => c.id);
       const on = !ids.every((id) => hidden.has(id));
-      const hide = p.tier === "C" || p.tier === "D" ? " agent" : "";
-      return `<label class="chip${hide}"><input type="checkbox" data-group="${index}" data-product="${esc(p.code)}"${on ? " checked" : ""}> ${esc(p.name)}</label>`;
+      return `<label class="chip"><input type="checkbox" data-group="${index}" data-product="${esc(p.code)}"${on ? " checked" : ""}> ${esc(p.name)} ${mark(p)}</label>`;
     }).join("");
   }
 
@@ -73,7 +73,8 @@
   function render(section) {
     const legend = Object.keys(tiers).map((t) => `<div>${badge(t)} ${esc(tiers[t])}</div>`).join("");
     section.innerHTML = `<div class="legend agent">ตรวจแหล่งข้อมูลเมื่อ ${esc(checked)}. กดชื่อแบบประกันเพื่อดูรายละเอียด${legend}</div>
-      <div class="legend">จำนวนเงินเป็นบาท. "+" คือซื้อเพิ่มได้ "—" คือไม่มีข้อมูลรายการนี้ในเอกสารที่ตรวจ ไม่ได้แปลว่าไม่คุ้มครอง</div>
+      <div class="legend">จำนวนเงินเป็นบาท. "+" คือซื้อเพิ่มได้ "—" คือไม่มีข้อมูลรายการนี้ในเอกสารที่ตรวจ ไม่ได้แปลว่าไม่คุ้มครอง
+        <div><span class="unconfirmed">ยังไม่ยืนยัน</span> คือข้อมูลยังไม่ได้ยืนยันจากเอกสารทางการ ตัวเลขอาจไม่ถูกต้อง สอบถามตัวแทนก่อนตัดสินใจ</div></div>
       ${compareGroups.map((g, i) => `<section class="group" data-index="${i}"><h2>${esc(g.name)}</h2>
         <div class="chips">${chips(g, i)}</div><div class="matrixhost"></div><div class="detailhost"></div></section>`).join("")}`;
     section.querySelectorAll(".group").forEach((card) => drawGroup(card, Number(card.dataset.index)));

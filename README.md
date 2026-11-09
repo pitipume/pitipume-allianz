@@ -25,7 +25,7 @@ open site/index.html                # no server needed
 
 ## Deploy
 
-`scripts/build.py` also writes `public/`: official-source products only, with agent notes removed. Cloudflare Pages serves that folder, with no build command. Never point a host at `site/`. Run the build and commit `public/` after each data change.
+`scripts/build.py` also writes `public/`, with agent notes removed. `showUnconfirmed` in `data/meta.json` controls tier C/D products: `true` shows them, `false` leaves them out of `public/` entirely, so their data isn't shipped at all. `site/` always has every product. When shown, tier C/D products show a "ยังไม่ยืนยัน" (unconfirmed) mark, a tinted column and a warning in the plan builder. When a brochure or the real contract confirms a product, fill in its data and raise its `tier` to A or B. The mark then disappears on the next build, with no site code change. Cloudflare Pages serves that folder, with no build command. Never point a host at `site/`. Run the build and commit `public/` after each data change.
 
 ## Add a product
 

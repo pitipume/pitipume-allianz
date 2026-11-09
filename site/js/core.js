@@ -16,6 +16,9 @@ window.App = (() => {
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const money = (n) => Number(n).toLocaleString("en-US");
   const badge = (t) => `<span class="badge t${t} agent" title="${esc(data.tiers[t])}">${t}</span>`;
+  // Tier C/D shows to customers with this mark. It goes away once the product's tier is raised to A or B.
+  const unconfirmed = (p) => p.tier === "C" || p.tier === "D";
+  const mark = (p) => (unconfirmed(p) ? `<span class="unconfirmed" title="ข้อมูลยังไม่ได้ยืนยันจากเอกสารทางการ">ยังไม่ยืนยัน</span>` : "");
   const list = (title, items) => (items && items.length ? `<h4>${title}</h4><ul>${items.map((i) => `<li>${esc(i)}</li>`).join("")}</ul>` : "");
 
   // amount only applies to percent-of-sum-insured benefits.
@@ -52,5 +55,5 @@ window.App = (() => {
     show((opening || tabs[0]).id);
   }
 
-  return { ...data, byCode, esc, money, badge, list, cellValue, benefitValue, registerTab, start };
+  return { ...data, byCode, esc, money, badge, unconfirmed, mark, list, cellValue, benefitValue, registerTab, start };
 })();
